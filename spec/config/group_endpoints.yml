@@ -1,0 +1,19 @@
+settings: 
+  base_uri: localhost.com
+web_services:
+- group: /users
+  endpoints:
+  - endpoint: /users/1.json
+    method: get
+    params: 
+      api_token: 
+        example_value: "12345"
+        required: "true"
+        description: The API Token
+  - endpoint: /users/2.json
+    method: get
+    params: 
+      api_token: 
+        example_value: "12345"
+        required: "true"
+        description: The API Token

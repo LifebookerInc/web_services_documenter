@@ -1,0 +1,11 @@
+--- 
+:settings: 
+  :base_uri: localhost.com
+:web_services: 
+- :endpoint: /users/1.json
+  :method: get
+  :params: 
+    :api_token: 
+      :example_value: "12345"
+      :required: "true"
+      :description: The API Token

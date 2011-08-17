@@ -1,0 +1,89 @@
+token: &token
+  required: true
+  example_value: 46d0a9e37a5afa43b4f41597c2a25866372558f4eb889bbb3b920b240fc9658e
+  description: An API token or the token returned from a username/password authentication request
+  
+settings:
+  base_uri: nyc.bizbooker.com
+
+web_services:
+  - group: /authenticate
+    endpoints:
+      - endpoint: /authenticate
+        method: get
+        params:
+          user_name:
+            required: true
+            example_value: "dan.langevin@gmail.com"
+            description: User Name
+          password:
+            required: true
+            example_value: "123456"
+            description: Password
+      - endpoint: /authenticate
+        method: get
+        params:
+          token:
+            <<: *token
+            
+      - endpoint: /authenticate/forgot_password
+        method: get
+        params:
+          user_name:
+            required: true
+            example_value: dan.langevin@gmail.com
+            description: User name (often the email)
+  - group: /clients
+    endpoints:
+      - endpoint: /clients
+        method: post
+        params:
+          token:
+            <<: *token
+          first_name:
+            required: false
+            example_value: Dan
+            description: The user's first name
+          last_name: 
+            required: false
+            example_value: Langevin
+            description: The user's last name
+          email: 
+            required: true
+            example_value: dan.langevin<%= Kernel.rand(9999999999999) %>@gmail.com
+            description: The user's email
+          password: 
+            required: true
+            example_value: 123456
+            description: The user's password
+          password_confirmation:
+            required: true
+            example_value: 123456
+            description: The user's password (again)
+      - endpoint: /clients/{id}
+        method: get
+        params:
+          token:
+            <<: *token
+          id:
+            required: true
+            example_value: 12269
+            description: The client's id
+      - endpoint: /clients/{id}/coupons
+        params:
+          token:
+            <<: *token
+          id:
+            required: true
+            example_value: 12269
+            description: The client's id
+        
+  - group: /loot
+    endpoints:
+      - endpoint: '/loot/list.json'
+        method: get
+        params:
+          city:
+            required: true
+            example_value: nyc
+            description: An active Lifebooker City - use the Cities service to get a list of these cities

@@ -1,0 +1,13 @@
+<html>
+  <head>
+    <title>API Docs</title>
+  </head>
+  
+  <body>
+    <h1>Contents</h1>
+    <ul>
+      <% self.pages.each do |page| %>
+        <li><a href="<%= page[:path] %>"><%= page[:title] %></a></li>
+      <% end %>
+  </body>
+</html>

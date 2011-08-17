@@ -1,0 +1,60 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    activesupport (3.0.9)
+    archive-tar-minitar (0.5.2)
+    columnize (0.3.4)
+    diff-lcs (1.1.2)
+    git (1.2.5)
+    guard (0.6.1)
+      thor (~> 0.14.6)
+    guard-rspec (0.4.2)
+      guard (>= 0.4.0)
+    i18n (0.6.0)
+    jeweler (1.6.4)
+      bundler (~> 1.0)
+      git (>= 1.2.5)
+      rake
+    linecache19 (0.5.12)
+      ruby_core_source (>= 0.1.4)
+    mocha (0.9.12)
+    multipart-post (1.1.3)
+    rake (0.9.2)
+    rcov (0.9.10)
+    rspec (2.6.0)
+      rspec-core (~> 2.6.0)
+      rspec-expectations (~> 2.6.0)
+      rspec-mocks (~> 2.6.0)
+    rspec-core (2.6.4)
+    rspec-expectations (2.6.0)
+      diff-lcs (~> 1.1.2)
+    rspec-mocks (2.6.0)
+    ruby-debug-base19 (0.11.25)
+      columnize (>= 0.3.1)
+      linecache19 (>= 0.5.11)
+      ruby_core_source (>= 0.1.4)
+    ruby-debug19 (0.11.6)
+      columnize (>= 0.3.1)
+      linecache19 (>= 0.5.11)
+      ruby-debug-base19 (>= 0.11.19)
+    ruby_core_source (0.1.5)
+      archive-tar-minitar (>= 0.5.2)
+    thor (0.14.6)
+    trollop (1.16.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  activesupport (= 3.0.9)
+  bundler
+  guard (= 0.6.1)
+  guard-rspec
+  i18n
+  jeweler
+  mocha
+  multipart-post
+  rcov
+  rspec
+  ruby-debug19
+  trollop
