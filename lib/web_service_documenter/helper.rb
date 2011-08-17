@@ -12,9 +12,9 @@ module WebServiceDocumenter
             return content_tag(:td, val[0..100])
           when Hash
             content_tag(:td) do
-              content_tag(:table) do
+              content_tag(:table, :class => "nested") do
                 content_tag(:tr) do
-                  content_tag(:th, "Key") + content_tag(:th, "Value")
+                  content_tag(:th, "Key", :class => "nested-key") + content_tag(:th, "Value", :class => "nested-value")
                 end +
                 val.collect do |k,v|
                   content_tag(:tr) do
@@ -27,6 +27,8 @@ module WebServiceDocumenter
             return content_tag(:td, val)
         end
       end
+      
+      
       
       def content_tag(tag, val = '', &block)
         val = yield if block_given?

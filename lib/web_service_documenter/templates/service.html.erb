@@ -1,67 +1,90 @@
 <html>
   <head>
     <title><%= @endpoint %></title>
+    <link rel="stylesheet" type="text/css" href="layout.css" media="screen" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.15/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="application.js"></script>
+    
   </head>
   
-  <body>
+  <body style="visibility:hidden">
+    <div class="wrapper">
     
-    <% arr = self.is_a?(Array) ? self : [self] %>
+      <% arr = self.is_a?(Array) ? self : [self] %>
     
-    <% arr.each do |service| %>
-      <div class="service">
-        <h2><%= service.endpoint %> (<%= service.method.upcase %>)</h2>
-    
-        <h3 class="request">Request</h3>
-    
-        <% unless service.params.empty? %>
-          <table>
-            <thead>
-              <tr>
-                <th>Key</th>
-                <th>Required</th>
-                <th>Description</th>
-                <th>Example</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% service.params.each_pair do |k, v| %>
-                <tr>
-                  <td><%= k %></td>
-                  <td><%= v["required"] %></td>
-                  <td><%= v["description"] %></td>
-                  <td><%= v["example_value"] %></td>
-              <% end %>
-            </tbody>
-          </table>
-    
-        <% end %>
-
-    
-    
-        <h3 class="response <%= service.method.downcase %>">Response</h3>
-    
-        <% unless service.response.empty? %>
-          <table>
-            <thead>
-              <tr>
-                <th>Key</th>
-                <th>Data Type</th>
-                <th>Example Value</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% service.response.each_pair do |k,v| %>
-                <tr>
-                  <th><%= k %>:</th>  
-                  <td><%= v.class %></td>
-                  <td><%= WebServiceDocumenter::Helper.html_for_value(v) %></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        <% end %>
-      </div>
-    <% end %>
+      <% arr.each do |service| %>
       
+        <div class="service <%= service.method.downcase %>">
+          <h2>
+            <span class="service-method">
+              <%= service.method.upcase %>
+            </span>
+            <span class="service-endpoint">
+              <%= service.endpoint %>
+            </span>
+          </h2>
+    
+    
+          <div class="service-contents">
+            <% unless service.params.empty? %>
+              <div class="request-wrapper">
+                <h3 class="request">Request</h3>
+                <div>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Key</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                        <th>Example</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% service.params.each_pair do |k, v| %>
+                        <tr>
+                          <td class="key"><%= k %></td>
+                          <td class="required"><%= v["required"] %></td>
+                          <td class="description"><%= v["description"] %></td>
+                          <td class="example"><%= v["example_value"] %></td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            <% end %>
+            
+            <% unless service.response.empty? %>
+              <div class="response-wrapper">
+                <h3 class="response">Response</h3>
+                <div>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Key</th>
+                        <th class="data-type">Data Type</th>
+                        <th class="example-value">Example Value</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% service.response.each_pair do |k,v| %>
+                        <tr>
+                          <th class="key"><%= k %>:</th>  
+                          <td><%= v.class %></td>
+                          <td><%= WebServiceDocumenter::Helper.html_for_value(v) %></td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            
+            <% end %>
+          </div>
+              
+        </div>
+      <% end %>
+    </div>
   </body>
 </html>
