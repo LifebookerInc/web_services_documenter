@@ -71,8 +71,14 @@ class WebServiceDocumenter
 
     def get_result
       
-      url = "http://#{@base_uri}#{@endpoint}"
+      endpoint = @endpoint.gsub(/\{(.*)\}/) do | i |
+        @params[i.gsub(/(\{|\})/,'')]["example_value"]
+      end
+      
+      url = "http://#{@base_uri}#{endpoint}"
       uri = URI.parse(url)
+
+      puts "DOING #{url} with #{@example_params}"
 
       result = if @method =~ /post/
         if @multipart == true
@@ -132,7 +138,7 @@ class WebServiceDocumenter
   end
 
   def generate(path_to_web_services)
-    @yml_file     = YAML.load_file(path_to_web_services)
+    @yml_file     = YAML.load(ERB.new(File.read(path_to_web_services)).result)
     @web_services = @yml_file["web_services"]
     @base_uri     = @yml_file["settings"]["base_uri"]
 

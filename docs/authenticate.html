@@ -90,7 +90,7 @@
                 <tr>
                   <th>token:</th>  
                   <td>String</td>
-                  <td><td>9fc1eccdf2dd706e955d97268e2798f8b2468a12d84c60b6</td></td>
+                  <td><td>dea60f364dd8422e03731998d0bb040bed50e547bca56e18</td></td>
                 </tr>
               
                 <tr>
@@ -131,7 +131,7 @@
                   <td>token</td>
                   <td>true</td>
                   <td>An API token or the token returned from a username/password authentication request</td>
-                  <td>3c2f5a078418bee2dd5fb2a441d9df09cd10179b7335a080</td>
+                  <td>46d0a9e37a5afa43b4f41597c2a25866372558f4eb889bbb3b920b240fc9658e</td>
               
             </tbody>
           </table>
@@ -155,32 +155,32 @@
               
                 <tr>
                   <th>user_name:</th>  
-                  <td>NilClass</td>
-                  <td><td></td></td>
+                  <td>String</td>
+                  <td><td>agranov</td></td>
                 </tr>
               
                 <tr>
                   <th>user_id:</th>  
-                  <td>NilClass</td>
-                  <td><td></td></td>
+                  <td>Fixnum</td>
+                  <td><td>28</td></td>
                 </tr>
               
                 <tr>
                   <th>user_type:</th>  
-                  <td>NilClass</td>
-                  <td><td></td></td>
+                  <td>String</td>
+                  <td><td>Client</td></td>
                 </tr>
               
                 <tr>
                   <th>roles:</th>  
                   <td>Array</td>
-                  <td><td></td></td>
+                  <td><td>super_user</td></td>
                 </tr>
               
                 <tr>
                   <th>permissions:</th>  
                   <td>Array</td>
-                  <td><td></td></td>
+                  <td><td>support</td></td>
                 </tr>
               
                 <tr>
@@ -191,14 +191,68 @@
               
                 <tr>
                   <th>error:</th>  
-                  <td>String</td>
-                  <td><td>Invalid Key or Username/Password</td></td>
+                  <td>NilClass</td>
+                  <td><td></td></td>
                 </tr>
               
                 <tr>
                   <th>user:</th>  
-                  <td>NilClass</td>
-                  <td><td></td></td>
+                  <td>Hash</td>
+                  <td><td><table><tr><th>Key</th><th>Value</th></tr><tr><td>service_uri</td><td>/clients/28.json</td></tr></table></td></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        
+      </div>
+    
+      <div class="service">
+        <h2>/authenticate/forgot_password (GET)</h2>
+    
+        <h3 class="request">Request</h3>
+    
+        
+          <table>
+            <thead>
+              <tr>
+                <th>Key</th>
+                <th>Required</th>
+                <th>Description</th>
+                <th>Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>user_name</td>
+                  <td>true</td>
+                  <td>User name (often the email)</td>
+                  <td>dan.langevin@gmail.com</td>
+              
+            </tbody>
+          </table>
+    
+        
+
+    
+    
+        <h3 class="response get">Response</h3>
+    
+        
+          <table>
+            <thead>
+              <tr>
+                <th>Key</th>
+                <th>Data Type</th>
+                <th>Example Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <th>message:</th>  
+                  <td>String</td>
+                  <td><td>Your password has been resent to dan.langevin@lifebooker.com</td></td>
                 </tr>
               
             </tbody>
