@@ -1,0 +1,33 @@
+settings:
+  base_uri: nyc.bizbooker.com
+
+web_services:
+  - group: /authenticate
+    endpoints:
+      - endpoint: /authenticate
+        method: get
+        params:
+          user_name:
+            required: true
+            example_value: "dan.langevin@gmail.com"
+            description: User Name
+          password:
+            required: true
+            example_value: "123456"
+            description: Password
+      - endpoint: /authenticate
+        method: get
+        params:
+          token:
+            required: true
+            example_value: 3c2f5a078418bee2dd5fb2a441d9df09cd10179b7335a080
+            description: An API token or the token returned from a username/password authentication request
+  - group: /loot
+    endpoints:
+      - endpoint: '/loot/list.json'
+        method: get
+        params:
+          city:
+            required: true
+            example_value: nyc
+            description: An active Lifebooker City - use the Cities service to get a list of these cities

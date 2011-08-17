@@ -3,9 +3,48 @@ require 'json'
 require 'net/http'
 require 'cgi'
 require 'net/http/post/multipart'
+require 'fileutils'
+require 'erb'
+require File.expand_path('../web_service_documenter/helper',__FILE__)
+
+require 'ruby-debug'
+Debugger.start
 
 class WebServiceDocumenter
+  
+  class << self
+    def doc_dir
+      @doc_dir
+    end
+    def doc_dir=(val)
+      @doc_dir = val
+    end
+  end
+  self.doc_dir = File.expand_path("../../docs/", __FILE__)
+  
+  class ServiceCollection < Array
+    attr_accessor :endpoint
+    
+    def generate_page
+      self.each(&:get_result)
+      
+      path = "#{WebServiceDocumenter.doc_dir}/#{@endpoint.gsub(/\/$/,'').gsub(/\.\w*$/,'')}.html"
+      # create the path if necessary
+      FileUtils.mkdir_p(File.dirname(path))
+      # write out our file
+      File.open(path, 'w+') do |f|
+        erb = ::ERB.new(File.read(File.expand_path('../templates/service.html.erb', __FILE__)))
+        f.write(erb.result(binding))
+      end
+      path
+    end
+    
+  end
+  
   class Service
+    
+    attr_accessor :base_uri, :endpoint, :params, :description, :multipart, :method, :example_params, :response
+    
     def initialize(base_uri, options)
       @base_uri       = base_uri
       @endpoint       = options["endpoint"]
@@ -30,9 +69,8 @@ class WebServiceDocumenter
       new_params
     end
 
-    def to_s
-      body = ""
-
+    def get_result
+      
       url = "http://#{@base_uri}#{@endpoint}"
       uri = URI.parse(url)
 
@@ -59,38 +97,21 @@ class WebServiceDocumenter
         raise "Couldn't perform request with url: #{url}"
       end
 
-      json_response = JSON.parse(result.body)
-
-      body << "\n"
-      body << "==================================================\n"
-
-      body << "URL: #{@endpoint} (#{@method.upcase})\n"
-      body << "\n"
-
-      body << "DESCRIPTION: #{@description}" << "\n \n" if @description
-
-      body << "Request Params: \n"
-      body << "\n"
-
-      if @params && @params.any?
-        @params.each do |key, value|
-          body << "  #{key} \n"
-
-          @params[key].each do |k,v|
-            body << "    #{k}: #{v} \n"
-          end
-        end
-      else
-        body << "  None"
+      @response = JSON.parse(result.body)
+    end
+    
+    # generate an individual page
+    def generate_page
+      self.get_result
+      path = "#{WebServiceDocumenter.doc_dir}/#{@endpoint.gsub(/\/$/,'').gsub(/\.\w*$/,'')}.html"
+      # create the path if necessary
+      FileUtils.mkdir_p(File.dirname(path))
+      # write out our file
+      File.open(path, 'w+') do |f|
+        erb = ::ERB.new(File.read(File.expand_path('../templates/service.html.erb', __FILE__)))
+        f.write(erb.result(binding))
       end
-
-      body << "\n"
-      body << "Response: \n"
-      body << "\n"
-      body << JSON.pretty_generate(json_response)
-      body << "\n"
-      body << "\n"
-      body
+      path
     end
 
   private
@@ -121,14 +142,25 @@ class WebServiceDocumenter
 private
 
   def curl_services
-    body = ""
-
+    @pages = []
     @web_services.each do |web_service|
-      service = Service.new(@base_uri, web_service)
-      body << service.to_s
-      body << " \n"
+      if web_service["group"]
+        service = ServiceCollection.new
+        service.endpoint = web_service["group"]
+        web_service["endpoints"].each do |ep|
+          service << Service.new(@base_uri, ep)
+        end
+      else
+        service = Service.new(@base_uri, web_service)
+      end
+      @pages << service.generate_page
     end
-
-    print body
+    puts @pages
   end
+  
+  def build_docs
+    
+  end
+  
+  
 end
