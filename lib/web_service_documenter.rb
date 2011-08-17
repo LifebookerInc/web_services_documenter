@@ -30,7 +30,6 @@ module WebServiceDocumenter
     self.config     = YAML.load(ERB.new(File.read(path_to_web_services.first)).result).with_indifferent_access
     self.web_services = self.config["web_services"]
     self.base_uri     = self.config["settings"]["base_uri"]
-
     curl_services
   end
 
