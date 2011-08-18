@@ -1,5 +1,8 @@
 module WebServiceDocumenter
   class ServiceCollection < Array
+    
+    include Path
+    
     attr_accessor :endpoint
     
     def initialize(endpoint)

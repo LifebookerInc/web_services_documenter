@@ -20,17 +20,23 @@ module WebServiceDocumenter
   autoload :Helper
   autoload :Service
   autoload :ServiceCollection
+  autoload :Path
   
-  mattr_accessor :output_dir, :config, :base_uri, :web_services, :pages
+  mattr_accessor :output_dir, :config, :base_uri, :web_services, :pages, :opts
   
   def self.generate(*path_to_web_services)
-    opts = path_to_web_services.extract_options!
+    self.opts = path_to_web_services.extract_options!
     
-    self.output_dir = opts[:output] || File.expand_path("../../docs/", __FILE__)
+    self.output_dir = self.opts[:output] || File.join(FileUtils.pwd, 'docs')
     self.config     = YAML.load(ERB.new(File.read(path_to_web_services.first)).result).with_indifferent_access
     self.web_services = self.config["web_services"]
     self.base_uri     = self.config["settings"]["base_uri"]
     curl_services
+  end
+  
+  # Log output
+  def self.log(message)
+    puts message if self.opts[:verbose] == true
   end
 
 private
@@ -46,18 +52,23 @@ private
       else
         service = Service.new(self.base_uri, web_service)
       end
-      self.pages << {:path => service.generate_page, :title => service.title}
+      # generate the actual page
+      service.generate_page
+      # get the page path and title
+      self.pages << {:path => service.path, :title => service.title}
     end
-    self.write_index
+    [:toc, :readme, :index].each do |page|
+      self.write_file(page)
+    end
   end
   # writes the index file
-  def self.write_index
-    path = "#{WebServiceDocumenter.output_dir}/index.html"
+  def self.write_file(filename)
+    path = "#{self.output_dir}/#{filename}.html"
     # create the path if necessary
     FileUtils.mkdir_p(File.dirname(path))
     # write out our file
     File.open(path, 'w+') do |f|
-      erb = ::ERB.new(File.read(File.expand_path('../web_service_documenter/templates/index.html.erb', __FILE__)))
+      erb = ::ERB.new(File.read(File.expand_path("../web_service_documenter/templates/#{filename}.html.erb", __FILE__)))
       f.write(erb.result(binding))
     end
   end

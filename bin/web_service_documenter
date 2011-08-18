@@ -4,6 +4,7 @@ require File.join(File.dirname(__FILE__), "..", "lib", "web_service_documenter")
 opts = Trollop::options do
   opt :output, "Output Directory", :default => "doc"
   opt :type, "Output Type (fs or web)", :default => "fs"
+  opt :verbose, "Print info", :default => false
 end
 
 WebServiceDocumenter.generate(ARGV[0], opts)

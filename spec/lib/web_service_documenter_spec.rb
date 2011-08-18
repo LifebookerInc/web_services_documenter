@@ -43,6 +43,23 @@ describe "WebServiceDocumenter" do
     WebServiceDocumenter.generate(@config_file, :output => @output_dir)
     Dir["#{@output_dir}/index.html"].length.should eql 1
     f = File.read("#{@output_dir}/index.html")
+    f.should =~ Regexp.new(Regexp.escape("frameset"))
+  end
+  
+  it "generates a Table of Contents page" do
+    @config_file = File.expand_path("../../config/group_endpoints.yml", __FILE__)
+    WebServiceDocumenter.generate(@config_file, :output => @output_dir)
+    Dir["#{@output_dir}/toc.html"].length.should eql 1
+    f = File.read("#{@output_dir}/toc.html")
     f.should =~ Regexp.new(Regexp.escape("/users"))
   end
+  
+  it "generates a README" do
+    @config_file = File.expand_path("../../config/group_endpoints.yml", __FILE__)
+    WebServiceDocumenter.generate(@config_file, :output => @output_dir)
+    Dir["#{@output_dir}/readme.html"].length.should eql 1
+    f = File.read("#{@output_dir}/readme.html")
+    f.should =~ Regexp.new(Regexp.escape("README"))
+  end
+  
 end

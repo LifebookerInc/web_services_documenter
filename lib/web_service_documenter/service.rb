@@ -1,6 +1,8 @@
 module WebServiceDocumenter
   class Service
     
+    include Path
+    
     attr_accessor :base_uri, :endpoint, :params, :description, :multipart, :method, :example_params, :response
     
     def initialize(base_uri, options)
@@ -35,7 +37,10 @@ module WebServiceDocumenter
     # get the result of the web request
     def get_result
       uri = URI.parse(self.url)
-
+      
+      # debugging output
+      WebServiceDocumenter.log("Getting #{self.url}")
+      
       result = if @method =~ /post/
         if @multipart == true
           request = Net::HTTP::Post::Multipart.new uri.path, transform_multipart_example_params
