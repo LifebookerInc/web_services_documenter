@@ -40,23 +40,23 @@ web_services:
         params:
           token:
             <<: *token
-          first_name:
+          "client[first_name]":
             required: false
             example_value: Dan
             description: The user's first name
-          last_name: 
+          "client[last_name]": 
             required: false
             example_value: Langevin
             description: The user's last name
-          email: 
+          "client[email]": 
             required: true
             example_value: dan.langevin<%= Kernel.rand(9999999999999) %>@gmail.com
             description: The user's email
-          password: 
+          "client[password]": 
             required: true
             example_value: 123456
             description: The user's password
-          password_confirmation:
+          "client[password_confirmation]":
             required: true
             example_value: 123456
             description: The user's password (again)

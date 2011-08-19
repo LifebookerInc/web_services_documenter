@@ -60,6 +60,13 @@ private
     [:toc, :readme, :index].each do |page|
       self.write_file(page)
     end
+    self.move_assets
+  end
+  # Move the css and js into the proper directory
+  def self.move_assets
+    ["application.js", "layout.css"].each do |filename|
+      FileUtils.cp(File.expand_path("../web_service_documenter/assets/#{filename}", __FILE__), self.output_dir)
+    end
   end
   # writes the index file
   def self.write_file(filename)

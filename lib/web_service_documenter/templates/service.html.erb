@@ -1,10 +1,11 @@
 <html>
   <head>
     <title><%= @endpoint %></title>
-    <link rel="stylesheet" type="text/css" href="layout.css" media="screen" />
+    <% path = "../" * (@endpoint.split("/").delete_if(&:blank?).length - 1) %>
+    <link rel="stylesheet" type="text/css" href="./<%= path %>layout.css" media="screen" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.15/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="application.js"></script>
+    <script type="text/javascript" src="./<%= path %>application.js"></script>
     
   </head>
   
@@ -71,8 +72,8 @@
                       <% service.response.each_pair do |k,v| %>
                         <tr>
                           <th class="key"><%= k %>:</th>  
-                          <td><%= v.class %></td>
-                          <td><%= WebServiceDocumenter::Helper.html_for_value(v) %></td>
+                          <td class="<%= v.class.to_s.dasherize.downcase %>"><%= v.class %></td>
+                          <%= WebServiceDocumenter::Helper.html_for_value(v) %>
                         </tr>
                       <% end %>
                     </tbody>

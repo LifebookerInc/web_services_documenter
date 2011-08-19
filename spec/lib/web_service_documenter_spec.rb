@@ -14,9 +14,8 @@ describe "WebServiceDocumenter" do
     
     @output_dir = File.expand_path("../../tmp", __FILE__)
     FileUtils.rm_rf(@output_dir)
-    
-    
   end
+    
   context "Configuration" do
     it "takes options for output directory" do
       WebServiceDocumenter.generate(@config_file, :output => @output_dir)
@@ -60,6 +59,13 @@ describe "WebServiceDocumenter" do
     Dir["#{@output_dir}/readme.html"].length.should eql 1
     f = File.read("#{@output_dir}/readme.html")
     f.should =~ Regexp.new(Regexp.escape("README"))
+  end
+  
+  it "copies over css and js" do
+    @config_file = File.expand_path("../../config/group_endpoints.yml", __FILE__)
+    WebServiceDocumenter.generate(@config_file, :output => @output_dir)
+    Dir["#{@output_dir}/*.js"].length.should eql 1
+    Dir["#{@output_dir}/*.css"].length.should eql 1
   end
   
 end

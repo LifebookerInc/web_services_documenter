@@ -3,6 +3,41 @@ body {
   font-family: monospace, Courier New;
   font-size: 13px;
 }
+
+/* Data Types */
+td.hash {
+  color: #8f0000;
+}
+td.string {
+  color: #01a001;
+}
+td.array {
+  color: #1010f0;
+}
+td.nilclass {
+  color: #F5AB00;
+}
+
+/* List of Endpoints */
+ul.endpoint-list {
+  list-style: none;
+  margin: 9px 0 0 0;
+  padding: 0;
+  font-size: 22px;
+  font-family: droid_sans, serif;
+}
+ul.endpoint-list li {
+  padding: 14px 0px;
+  text-align: center;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+ul.endpoint-list li a, ul.endpoint-list li a:visited {
+  color: black;
+  display: block;
+  font-weight: bold;
+}
+
 body div.wrapper {
   width: 100%;
 }
@@ -20,7 +55,6 @@ body div.wrapper div.service h2 {
   margin: 0px;
   cursor: pointer;
 }
-
 
 
 /* GET STUFF */
@@ -133,11 +167,16 @@ div.service div.service-contents table thead tr th {
   border-bottom: solid 1px #666;
   border-collapse: collapse;
 }
+
 th {
   color: #666;
   font-size: 14px;
   font-weight: normal;
   text-align: left;
+  padding: 5px;
+}
+td {
+  padding: 5px;
 }
 table tr td.key {
   width: 200px;

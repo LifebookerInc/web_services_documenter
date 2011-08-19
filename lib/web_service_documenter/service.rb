@@ -65,6 +65,8 @@ module WebServiceDocumenter
       end
 
       @response = JSON.parse(result.body)
+      @response = @response.first if @response.is_a?(Array)
+      @response
     end
     
     def url

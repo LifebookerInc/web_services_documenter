@@ -4,10 +4,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"> 
   <head> 
 	  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
-	  <title>Endpoint List</title> 
+	  <title>Endpoint List</title>
+	  <link rel="stylesheet" type="text/css" href="./layout.css" media="screen" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.15/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="./application.js"></script>
   </head> 
   <body>
-    <ul>
+    <ul class="endpoint-list">
       <% self.pages.sort_by{|p| p[:title]}.each do |page| %>
         <li><a target="main" href="<%= page[:path] %>"><%= page[:title] %></a></li>
       <% end %>
