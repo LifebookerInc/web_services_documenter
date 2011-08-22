@@ -95,7 +95,7 @@ module WebServiceDocumenter
 
     def create_example_params
       hash = {}
-      @params.each do |key, value|
+      (@params || {}).each do |key, value|
         hash[key] = value["example_value"]
       end
       hash

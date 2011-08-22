@@ -87,3 +87,39 @@ web_services:
             required: true
             example_value: nyc
             description: An active Lifebooker City - use the Cities service to get a list of these cities
+  - group: /cities
+    endpoints:
+      - endpoint: '/cities.json'
+        method: get
+      - endpoint: '/cities/{id}.json'
+        method: get
+        params:
+          id:
+            required: true
+            example_value: 1
+            description: A city id - the full list can be retrieved from /cities
+      - endpoint: '/cities/{id}/zones.json'
+        method: get
+        params:
+          id:
+            required: true
+            example_value: 1
+            description: A city id - the full list can be retrieved from /cities
+  - group: /zones
+    endpoints:
+      - endpoint: '/zones.json'
+        method: get
+      # - endpoint: '/zones/{id}.json'
+      #         method: get
+      #         params:
+      #           id:
+      #             required: true
+      #             example_value: 1
+      #             description: A zone id - the full list can be retrieved from /zones
+      - endpoint: '/zones/{id}/descendants.json'
+        method: get
+        params:
+          id:
+            required: true
+            example_value: 1
+            description: A zone id - the full list can be retrieved from /zones

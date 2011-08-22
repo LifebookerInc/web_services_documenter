@@ -28,7 +28,7 @@
     
     
           <div class="service-contents">
-            <% unless service.params.empty? %>
+            <% unless service.params.nil? || service.params.empty? %>
               <div class="request-wrapper">
                 <h3 class="request">Request</h3>
                 <div>
@@ -56,7 +56,7 @@
               </div>
             <% end %>
             
-            <% unless service.response.empty? %>
+            <% unless service.response.nil? || service.response.empty? %>
               <div class="response-wrapper">
                 <h3 class="response">Response</h3>
                 <div>
