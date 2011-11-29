@@ -69,15 +69,51 @@ web_services:
             required: true
             example_value: 12269
             description: The client's id
-      - endpoint: /clients/{id}/coupons
+      - endpoint: /clients/{client_id}/coupons
+        method: get
         params:
           token:
             <<: *token
-          id:
+          client_id:
             required: true
             example_value: 12269
             description: The client's id
-        
+      - endpoint: /clients/{client_id}/coupons/{id}
+        method: get
+        params:
+          token:
+            <<: *token
+          client_id:
+            required: true
+            example_value: 12269
+            description: The client's id
+          id:
+            required: true
+            example_value: 2
+      - endpoint: /clients/{client_id}/coupons/{id}
+        method: put
+        params:
+          token:
+            <<: *token
+          client_id:
+            required: true
+            example_value: 12269
+            description: The client's id
+          id:
+            required: true
+            example_value: 2
+          "invoice_item[is_returnable]":
+            required: false
+            example_value : true
+            description: Whether or not this item is returnable
+          "invoice_item[redeemed_by_client_on]":
+            required: false
+            example_value : 2011-01-10 12:00:00
+            description: When the client marked this as redeemed
+          "invoice_item[redeemed_by_provider_on]":
+            required: false
+            example_value : 2011-01-10 12:00:00
+            description: When the provider marked this as redeemed
   - group: /loot
     endpoints:
       - endpoint: '/loot/list.json'
@@ -109,13 +145,13 @@ web_services:
     endpoints:
       - endpoint: '/zones.json'
         method: get
-      # - endpoint: '/zones/{id}.json'
-      #         method: get
-      #         params:
-      #           id:
-      #             required: true
-      #             example_value: 1
-      #             description: A zone id - the full list can be retrieved from /zones
+      - endpoint: '/zones/{id}.json'
+        method: get
+        params:
+          id:
+            required: true
+            example_value: 1
+            description: A zone id - the full list can be retrieved from /zones
       - endpoint: '/zones/{id}/descendants.json'
         method: get
         params:
