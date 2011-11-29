@@ -60,6 +60,44 @@ web_services:
             required: true
             example_value: 123456
             description: The user's password (again)
+          "client[city_id]":
+            required: true
+            example_value: 1
+            description: The user's city_id
+      - endpoint: /clients/{id}
+        method: put
+        params:
+          token:
+            <<: *token
+          id:
+            required: true
+            example_value: 12269
+            description: The client's id
+          "client[first_name]":
+            required: false
+            example_value: Dan
+            description: The user's first name
+          "client[last_name]": 
+            required: false
+            example_value: Langevin
+            description: The user's last name
+          "client[email]":
+            required: true
+            example_value: dan.langevin<%= Kernel.rand(9999999999999) %>@gmail.com
+            description: The user's email
+          "client[password]": 
+            required: true
+            example_value: 123456
+            description: The user's password
+          "client[password_confirmation]":
+            required: true
+            example_value: 123456
+            description: The user's password (again)
+          "client[city_id]":
+            required: false
+            example_value: 1
+            description: The user's city_id
+
       - endpoint: /clients/{id}
         method: get
         params:

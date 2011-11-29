@@ -61,6 +61,8 @@ module WebServiceDocumenter
       end
 
       unless result.code.to_s =~ /^2\d{2}$/
+        require 'pp'
+        puts JSON.parse(result.body).pretty_inspect
         raise "Couldn't perform request with url: #{url}"
       end
 
@@ -70,10 +72,9 @@ module WebServiceDocumenter
     end
     
     def url
-      endpoint = @endpoint.gsub(/\{(.*)\}/) do | i |
+      endpoint = @endpoint.gsub(/\{([^\}]+)\}/) do | i |
         @params[i.gsub(/(\{|\})/,'')]["example_value"]
       end
-      
       url = "http://#{@base_uri}#{endpoint}"
     end
     
